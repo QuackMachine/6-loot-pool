@@ -5,6 +5,7 @@
 #include <iostream>
 #include <time.h>
 #include <string>
+#include <random>
 using namespace std;
 
 void white();             // 45% of loot pool
@@ -12,6 +13,15 @@ void green();             // 30% of loot pool
 void blue();              // 15% of loot pool
 void purple();            // 8%  of loot pool
 void yellow();            // 2%  of loot pool
+
+std::random_device rd;
+std::mt19937_64 gen (rd ());
+std::uniform_int_distribution <> distribution       (1  , 1000);
+std::uniform_int_distribution <> distributionWhite  (1  , 100);
+std::uniform_int_distribution <> distributionGreen  (101, 200);
+std::uniform_int_distribution <> distributionBlue   (201, 300);
+std::uniform_int_distribution <> distributionPurple (301, 400);
+std::uniform_int_distribution <> distributionYellow (401, 500);
 
 int main()
 {
@@ -23,7 +33,7 @@ int main()
     srand(time(NULL));
 
     //range between 1 - 1000 
-    LootPool = rand() % 1000 + 1;
+    LootPool = distribution (gen);
 
     //for console
     cout << endl;
@@ -74,7 +84,7 @@ void white()
 
     //more rng
     srand(time(NULL));
-    rng = rand() % 100 + 1;
+    rng = distributionWhite (gen);
 
     //display rng number
     cout << "common = " << rng << ".\n";
@@ -88,7 +98,7 @@ void green()
 
     //more rng... again
     srand(time(NULL));
-    rng = rand() % 200 + 101;
+    rng = distributionGreen (gen);
 
     //display rng number
     cout << "uncommon = " << rng << ".\n"; 
@@ -102,7 +112,7 @@ void blue()
 
     //even more rng
     srand(time(NULL));
-    rng = rand() % 300 + 201;
+    rng = distributionBlue (gen);
 
     //display rng number
     cout << "blue = " << rng << ".\n";
@@ -116,7 +126,7 @@ void purple()
 
     //...rng
     srand(time(NULL));
-    rng = rand() % 400 + 301;
+    rng = distributionPurple (gen);
 
     //dis rng #
     cout << "purple = " << rng << ".\n";
@@ -130,7 +140,7 @@ void yellow()
 
     //last rng for this code
     srand(time(NULL));
-    rng = rand() % 500 + 401;
+    rng = distributionYellow (gen);
 
     //dis rng #
     cout << "yellow = " << rng << ".\n";
